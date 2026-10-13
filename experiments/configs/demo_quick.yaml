@@ -1,0 +1,17 @@
+# Quick deterministic demo: short episodes, few episodes. Runs in minutes on a laptop with SUMO.
+# (With backend: mock it runs in seconds, but mock is only a test double.)
+kind: marl
+seed: 0
+sim:
+  backend: sumo
+  scenario: uneven
+  duration_s: 600
+rl:
+  episodes: 12
+  eps_decay_steps: 600
+  learn_start: 128
+federated:
+  rounds: 4
+  episodes_per_round: 3
+eval:
+  seeds: [101, 102]

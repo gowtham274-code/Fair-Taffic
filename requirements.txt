@@ -1,0 +1,17 @@
+# Core
+numpy>=1.26
+pandas>=2.1
+pydantic>=2.5
+PyYAML>=6.0
+# Deep learning (optional: a NumPy fallback exists, but PyTorch is the intended backend)
+torch>=2.2
+# Traffic simulation (research backend)
+eclipse-sumo>=1.19
+traci>=1.19
+sumolib>=1.19
+# API + dashboard
+fastapi>=0.110
+uvicorn[standard]>=0.27
+streamlit>=1.32
+plotly>=5.19
+requests>=2.31

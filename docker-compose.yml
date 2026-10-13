@@ -1,0 +1,21 @@
+# Two services share one persistent volume. Experiments run as child processes of the API (one at a time).
+services:
+  api:
+    build: .
+    env_file: .env
+    ports: ["8000:8000"]
+    volumes: ["fairtraffic-data:/data/storage"]
+    restart: unless-stopped
+  dashboard:
+    build: .
+    env_file: .env
+    command: streamlit run app/dashboard/app.py --server.port 8501 --server.address 0.0.0.0 --server.headless true
+    ports: ["8501:8501"]
+    volumes: ["fairtraffic-data:/data/storage"]
+    depends_on: [api]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8501/_stcore/health')"]
+      interval: 30s
+    restart: unless-stopped
+volumes:
+  fairtraffic-data:

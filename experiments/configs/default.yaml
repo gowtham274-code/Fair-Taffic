@@ -1,0 +1,32 @@
+# Default research configuration (SUMO backend). Hyper-parameters are initial values that
+# must be tuned and validated experimentally; they are not taken from the source documents.
+kind: marl
+seed: 0
+sim:
+  backend: sumo
+  scenario: medium        # low | medium | high | uneven
+  duration_s: 1800
+  delta_time: 5
+  yellow_time: 3
+  min_green: 10
+rl:
+  episodes: 30
+  gamma: 0.95
+  lr: 0.001
+  hidden: [64, 64]
+  eps_decay_steps: 3000
+reward:
+  w_wait: 1.0
+  w_queue: 0.25
+  w_throughput: 0.1
+  w_fairness: 1.0         # 0 => delay-only RL baseline
+  ggf_decay: 0.5
+federated:
+  rounds: 10
+  episodes_per_round: 3
+  participation_rate: 1.0
+eval:
+  seeds: [101, 102, 103]
+  fixed_green_s: 30
+output:
+  root: storage/experiments
